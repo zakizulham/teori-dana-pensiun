@@ -1,0 +1,13 @@
+# ======================================
+# OS specific
+# ======================================
+# VS Code workspace settings
+.vscode/
+.history/
+*.code-workspace
+
+# ======================================
+# Render .build latex
+# ======================================
+# latex .build
+.build
