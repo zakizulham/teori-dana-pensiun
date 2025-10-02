@@ -7,7 +7,7 @@
 *.code-workspace
 
 # ======================================
-# Render .build latex
+# Microsoft Specific
 # ======================================
-# latex .build
-.build
+# Microsoft 365 file opened
+~$*
