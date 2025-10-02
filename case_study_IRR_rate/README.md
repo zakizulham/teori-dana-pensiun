@@ -70,7 +70,7 @@ Untuk menjalankan kalkulator dan mereproduksi hasil perhitungan, ikuti langkah-l
 1.  **Clone Repositori**
     Buka terminal atau command prompt Anda dan jalankan perintah berikut:
     ```bash
-    git clone https://github.com/zakizulham/teori-dana-pensiun.git
+    git clone [https://github.com/zakizulham/teori-dana-pensiun.git](https://github.com/zakizulham/teori-dana-pensiun.git)
     cd teori-dana-pensiun/case_study_IRR_rate
     ```
 
@@ -109,6 +109,26 @@ gender = 'f'  # Ubah ke 'f' untuk subjek wanita
 gaji_awal_bulanan = 10_000_000  # Ubah gaji awal
 kenaikan_gaji_pa = 0.06 # Ubah asumsi kenaikan gaji
 ```
+
+---
+
+### 📄 Panduan Implementasi di Microsoft Excel
+
+Selain menggunakan skrip Python, seluruh logika kalkulator ini juga dapat direplikasi sepenuhnya di Microsoft Excel. Pendekatan ini cocok bagi pengguna yang lebih menyukai antarmuka visual dan ingin melihat perubahan perhitungan secara *real-time* saat asumsi diubah.
+
+Panduan ini memecah kalkulator ke dalam empat *sheet* yang saling berhubungan:
+
+1.  **`Asumsi`**
+    -   **Tujuan**: Menjadi pusat kendali di mana semua variabel input (seperti usia, gaji awal, imbal hasil, dll.) ditempatkan. Mengubah nilai di *sheet* ini akan secara otomatis memperbarui seluruh perhitungan.
+
+2.  **`Proyeksi Tahunan`**
+    -   **Tujuan**: Membuat tabel simulasi tahun-demi-tahun untuk menghitung akumulasi dana JHT. *Sheet* ini memproyeksikan pertumbuhan gaji, iuran tahunan, dan imbal hasil investasi pada saldo JHT dari usia mulai hingga usia pensiun.
+
+3.  **`Tabel Mortalita`**
+    -   **Tujuan**: Melakukan perhitungan aktuaria untuk menemukan **Faktor Anuitas Hidup ($\ddot{a}_x$)**. Faktor ini adalah kunci untuk mengonversi sejumlah dana *lump sum* menjadi estimasi penghasilan pensiun bulanan seumur hidup.
+
+4.  **`Hasil & Solusi`**
+    -   **Tujuan**: Menjadi dasbor akhir yang merangkum semua hasil. *Sheet* ini mengambil data dari tiga *sheet* lainnya untuk menghitung total dana yang ada, membandingkannya dengan target pensiun, menemukan kekurangan (*gap*), dan akhirnya menghitung **iuran DPLK bulanan yang direkomendasikan**.
 
 ---
 
