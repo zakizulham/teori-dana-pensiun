@@ -31,7 +31,7 @@ iuran_jht_total = 0.057  # 5.7% (Perusahaan + Pekerja)
 # --- ASUMSI BARU: JAMINAN PENSIUN (JP) ---
 usia_pensiun_jp = 60  # Manfaat JP cair di usia 60 tahun
 usia_mulai_iuran_jp = 25  # Asumsi mulai menjadi peserta JP di usia 25
-batas_atas_manfaat_jp = 14_000_000  # Batas atas manfaat JP bulanan (contoh)
+batas_atas_manfaat_jp = 4_792_300  # Batas atas manfaat JP bulanan
 
 # --- Variabel Perhitungan Turunan ---
 masa_kerja = usia_pensiun - usia_awal  # dalam tahun
@@ -100,23 +100,23 @@ def hitung_faktor_anuitas(usia, tabel_mortalita_df, imbal_hasil):
 
 def hitung_pv_manfaat_jp(gaji_akhir_bln, tabel_mortalita_df):
     """
-    FUNGSI BARU: Menghitung Present Value (PV) dari manfaat JP di usia 55.
+    Menghitung Present Value (PV) dari manfaat JP di usia 55.
+    Logika disesuaikan agar identik dengan model Excel.
     """
-    # 1. Estimasi manfaat JP bulanan di usia 60
+    # 1. Estimasi manfaat JP bulanan di usia 60 (logika disederhanakan)
     masa_iuran_bulan = (usia_pensiun_jp - usia_mulai_iuran_jp) * 12
-    # Gaji untuk perhitungan JP biasanya dibatasi upah maksimum
-    gaji_jp = min(gaji_akhir_bln, 15_000_000)  # Contoh batas atas gaji
-    manfaat_tahunan_raw = 0.01 * masa_iuran_bulan * (gaji_jp * 12)
-    manfaat_bulanan_raw = manfaat_tahunan_raw / 12
+    
+    manfaat_bulanan_raw = 0.01 * masa_iuran_bulan * gaji_akhir_bln
+    
     manfaat_jp_bulanan = min(manfaat_bulanan_raw, batas_atas_manfaat_jp)
 
-    # 2. Hitung nilai lump sum manfaat JP di usia 60
+    # 2. Hitung nilai lump sum manfaat JP di usia 60 (logika tetap sama)
     faktor_anuitas_60 = hitung_faktor_anuitas(
         usia_pensiun_jp, tabel_mortalita_df, imbal_hasil_investasi_pa
     )
     nilai_lump_sum_di_60 = manfaat_jp_bulanan * 12 * faktor_anuitas_60
 
-    # 3. Diskonto nilai tersebut ke usia 55
+    # 3. Diskonto nilai tersebut ke usia 55 (logika tetap sama)
     periode_diskonto = usia_pensiun_jp - usia_pensiun
     pv_manfaat_jp_di_55 = nilai_lump_sum_di_60 / (1 + imbal_hasil_investasi_pa)**periode_diskonto
     
@@ -166,6 +166,7 @@ if __name__ == "__main__":
     
     print(f"\n[3] Konversi Dana ke Pensiun Bulanan Seumur Hidup")
     print(f"    - Faktor Anuitas (ä_{usia_pensiun}) : {faktor_anuitas_55:.4f}")
+    print(f"    - Faktor Anuitas (ä_{usia_pensiun_jp}) : {fa_60:.4f}") # <-- TAMBAHAN BARIS INI
     print(f"    - Estimasi Pensiun Bulanan: Rp {manfaat_pensiun_bulanan_existing:,.0f}")
 
     # 4. Hitung Kekurangan (Gap)
