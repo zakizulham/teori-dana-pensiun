@@ -176,9 +176,9 @@ def hitung_pv_manfaat_jp(gaji_akhir_bln, tabel_mortalita_df):
 # TAHAP 4: EKSEKUSI PERHITUNGAN UTAMA
 # ==============================================================================
 if __name__ == "__main__":
-    print("\n--- KALKULATOR PENSIUN V2 (TERMASUK JAMINAN PENSIUN) ---")
+    print("\n--- KALKULATOR PENSIUN TERBARU---")
 
-    # 1. Hitung Gaji Akhir & Target Pensiun (Sama seperti sebelumnya)
+    # 1. Hitung Gaji Akhir & Target Pensiun
     gaji_akhir_bulanan = hitung_gaji_akhir(
         gaji_awal_bulanan, kenaikan_gaji_pa, masa_kerja
     )
