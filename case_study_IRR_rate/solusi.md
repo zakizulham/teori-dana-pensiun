@@ -44,7 +44,7 @@ $ python kalkulator.py
 $ python kalkulator2.py 
 ✅ Berhasil memuat tabel mortalita: data/tmi_4_m.csv
 
---- KALKULATOR PENSIUN V2 (TERMASUK JAMINAN PENSIUN) ---
+--- KALKULATOR PENSIUN TERBARU---
 
 [1] Proyeksi & Target Pensiun (Usia 55)
     - Gaji terakhir per bulan : Rp 16,631,425
