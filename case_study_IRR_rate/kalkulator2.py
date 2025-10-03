@@ -76,12 +76,60 @@ def hitung_akumulasi_jht(gaji_awal, kenaikan_gaji, imbal_hasil, masa_kerja_thn, 
 
 
 def hitung_pesangon_uuck(gaji_akhir_bulanan, masa_kerja_tahun):
-    """Menghitung pesangon UUCK (disederhanakan)."""
-    if masa_kerja_tahun >= 15:
-        faktor_pengali = 9
-    else:
-        faktor_pengali = 0
-    return faktor_pengali * gaji_akhir_bulanan
+    """
+    Menghitung total pesangon pensiun sesuai PP 35/2021.
+    Mencakup UP (1.75x), UPMK (1x), dan UPH (15%).
+    """
+    # 1. Hitung Uang Pesangon (UP) dasar dalam satuan bulan
+    if masa_kerja_tahun < 1:
+        up_dasar_bulan = 1
+    elif masa_kerja_tahun < 2:
+        up_dasar_bulan = 2
+    elif masa_kerja_tahun < 3:
+        up_dasar_bulan = 3
+    elif masa_kerja_tahun < 4:
+        up_dasar_bulan = 4
+    elif masa_kerja_tahun < 5:
+        up_dasar_bulan = 5
+    elif masa_kerja_tahun < 6:
+        up_dasar_bulan = 6
+    elif masa_kerja_tahun < 7:
+        up_dasar_bulan = 7
+    elif masa_kerja_tahun < 8:
+        up_dasar_bulan = 8
+    else:  # 8 tahun atau lebih
+        up_dasar_bulan = 9
+
+    # Terapkan faktor pengali 1.75x untuk alasan pensiun
+    up_pensiun_bulan = 1.75 * up_dasar_bulan
+
+    # 2. Hitung Uang Penghargaan Masa Kerja (UPMK) dalam satuan bulan
+    if masa_kerja_tahun < 3:
+        upmk_bulan = 0
+    elif masa_kerja_tahun < 6:
+        upmk_bulan = 2
+    elif masa_kerja_tahun < 9:
+        upmk_bulan = 3
+    elif masa_kerja_tahun < 12:
+        upmk_bulan = 4
+    elif masa_kerja_tahun < 15:
+        upmk_bulan = 5
+    elif masa_kerja_tahun < 18:
+        upmk_bulan = 6
+    elif masa_kerja_tahun < 21:
+        upmk_bulan = 7
+    elif masa_kerja_tahun < 24:
+        upmk_bulan = 8
+    else:  # 24 tahun atau lebih
+        upmk_bulan = 10
+
+    # 3. Hitung Uang Penggantian Hak (UPH)
+    uph_bulan = 0.15 * (up_pensiun_bulan + upmk_bulan)
+
+    # 4. Jumlahkan semua komponen
+    total_faktor_pengali = up_pensiun_bulan + upmk_bulan + uph_bulan
+
+    return total_faktor_pengali * gaji_akhir_bulanan
 
 
 def hitung_faktor_anuitas(usia, tabel_mortalita_df, imbal_hasil):

@@ -52,27 +52,27 @@ $ python kalkulator2.py
 
 [2] Estimasi Manfaat Pensiun di Usia 55 (Lump Sum Equivalent)
     - Akumulasi Dana JHT      : Rp 173,807,143
-    - Uang Pesangon (UUCK)    : Rp 149,682,829
+    - Uang Pesangon (UUCK)    : Rp 415,993,529
     - PV Manfaat JP di Usia 55: Rp 540,012,874
     -------------------------------------------------- +
-    - Total Dana Siap Pakai   : Rp 863,502,847
+    - Total Dana Siap Pakai   : Rp 1,129,813,547
 
 [3] Konversi Dana ke Pensiun Bulanan Seumur Hidup
     - Faktor Anuitas (ä_55) : 13.3752
     - Faktor Anuitas (ä_60) : 12.5663
-    - Estimasi Pensiun Bulanan: Rp 5,379,985
+    - Estimasi Pensiun Bulanan: Rp 7,039,212
 
 [4] Kebutuhan & Kekurangan Pensiun
     - Target Pensiun Bulanan  : Rp 13,305,140
-    - Manfaat yang Ada        : Rp 5,379,985
+    - Manfaat yang Ada        : Rp 7,039,212
     -------------------------------------------------- -
-    - Kekurangan (GAP)        : Rp 7,925,155
+    - Kekurangan (GAP)        : Rp 6,265,928
 
 [5] Solusi: Iuran DPLK
-    - Dana DPLK harus terkumpul: Rp 1,272,009,880
-    - Persentase dari gaji awal: 55.42%
+    - Dana DPLK harus terkumpul: Rp 1,005,699,180
+    - Persentase dari gaji awal: 43.82%
 
 ==============================================================================
-✅ IURAN DPLK BULANAN (DENGAN JP): Rp 4,433,451
+✅ IURAN DPLK BULANAN (DENGAN JP): Rp 3,505,254
 ==============================================================================
 ```
