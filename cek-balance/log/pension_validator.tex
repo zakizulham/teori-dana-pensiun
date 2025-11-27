@@ -1,0 +1,109 @@
+\documentclass[lang=en,10pt]{elegantbook}
+
+% --- Informasi Metadata Buku ---
+\title{Laporan Validasi Pensiun}
+\subtitle{Log Percobaan Cek Balance}
+
+\author{Muhammad Zaki Zulhamlizar}
+\institute{Universitas Indonesia}
+\date{\today}
+\version{1.0}
+
+% Info bio kustom (Kiri: Judul Label, Kanan: Isi)
+\bioinfo{Info Khusus}{Percobaan Validasi Pensiun dengan Cek Balance banyak eksperimen dan hasil yang menarik.}
+
+% Kutipan atau info tambahan di bawah info penulis
+\extrainfo{Mata Kuliah Teori Dana Pensiun.}
+
+% Kedalaman daftar isi (3 artinya sampai sub-subsection)
+\setcounter{tocdepth}{3}
+
+% --- Gambar Sampul dan Logo ---
+% Pastikan file gambar ini ada di folder project Anda
+\logo{muscle-cat.png}
+\cover{cover.jpg}
+
+% --- Perintah Dokumen ---
+\usepackage{array}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+\graphicspath{{figure/}}
+
+\renewcommand{\contentsname}{Daftar Isi}
+\renewcommand{\chaptername}{Bab}
+\renewcommand{\figurename}{Gambar}
+
+% --- Kustomisasi Warna ---
+% Ubah warna pita oranye pada halaman judul (opsional, hilangkan komentar untuk mengaktifkan)
+\definecolor{customcolor}{RGB}{32,178,170}
+\colorlet{coverlinecolor}{customcolor}
+
+\begin{document}
+
+% --- Bagian Depan (Frontmatter) ---
+\maketitle      % Membuat halaman judul
+\frontmatter    % Penomoran halaman romawi
+
+\tableofcontents % Membuat Daftar Isi
+
+% --- Bagian Utama (Mainmatter) ---
+\mainmatter     % Penomoran halaman arab (1, 2, 3...)
+
+% =====================================================
+% MULAI MENULIS DI SINI
+% =====================================================
+
+\chapter{Penjelasan Dulu}
+
+Apa sih yang gw lakuin?
+
+Jadi, gw ngelakuin eksperimen buat validasi dana pensiun pake metode cek balance. Jadi, gw ngecek balance dari dana pensiun yang ada buat liat apakah sesuai sama ekspektasi atau enggak.
+
+Spesifiknya gw akan melakukan validasi angka-angka pada Slide 17 (``Permasalahan Program Jaminan Pensiun'') dan Slide 16 (``Permasalahan Program Jaminan Hari Tua''), kita perlu membedah ``mesin'' aktuaria di baliknya.
+
+Gw akan bandingkan dua sisi neraca:
+\begin{itemize}
+    \item \textbf{Sisi Aset (Accumulated Fund)}: Berapa uang yang terkumpul dari iuran (mirip prinsip Defined Contribution).
+    \item \textbf{Sisi Aset (Accumulated Fund)}: Berapa uang yang seharusnya dibayar ke peserta berdasarkan perhitungan aktuaria (mirip prinsip Defined Benefit).
+\end{itemize}
+
+Kalau kedua sisi ini nggak balance, berarti ada yang salah di perhitungan atau asumsi yang dipakai.
+
+Ketimpangan antara kedua sisi ini bisa ngasih insight tentang:
+\begin{itemize}
+    \item Apakah iuran yang dikumpulkan cukup buat bayar manfaat pensiun.
+    \item Apakah asumsi aktuaria (seperti tingkat bunga, mortalitas, dsb) realistis.
+    \item Potensi risiko pendanaan jangka panjang dari program pensiun tersebut.
+    \item Ketimpangan (Unfunded Liability) yang mungkin ada.
+\end{itemize}
+
+Dengan ngecek balance ini, kita bisa validasi apakah program pensiun itu sehat secara finansial atau perlu penyesuaian.
+
+
+% \chapter{Pembahasan Utama}
+
+% \section{Teori Dasar}
+% Tuliskan teori Anda di sini. Gunakan environment theorem untuk teorema.
+
+% % Contoh penggunaan environment teorema (theorem)
+% \begin{theorem}{Nama Teorema}{label_teorema}
+%     Isi dari teorema matematika atau pernyataan penting.
+% \end{theorem}
+
+% \section{Analisis Data}
+% Anda bisa memasukkan tabel, gambar, atau persamaan matematika di bagian ini.
+
+% % Contoh persamaan matematika
+% \begin{equation}
+%     E = mc^2
+% \end{equation}
+
+% % --- Daftar Pustaka (Opsional) ---
+% % Hilangkan komentar di bawah ini jika Anda sudah memiliki file reference.bib
+% % \printbibliography[heading=bibintoc, title=Daftar Pustaka]
+
+% % --- Lampiran (Appendix) ---
+% \appendix
+% \chapter{Lampiran A}
+% Isi lampiran jika ada.
+
+\end{document}
