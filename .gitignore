@@ -50,3 +50,5 @@
 *.ist
 *.acn
 *.acr
+
+cek-balance/log/figure/*
