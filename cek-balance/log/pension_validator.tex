@@ -10,7 +10,7 @@
 \version{1.0}
 
 % Info bio kustom (Kiri: Judul Label, Kanan: Isi)
-\bioinfo{Info Khusus}{Percobaan Validasi Pensiun dengan Cek Balance banyak eksperimen dan hasil yang menarik.}
+\bioinfo{Info Khusus}{Percobaan Validasi Pensiun dengan \\ Cek Balance banyak eksperimen dan hasil yang menarik.}
 
 % Kutipan atau info tambahan di bawah info penulis
 \extrainfo{Mata Kuliah Teori Dana Pensiun.}
@@ -52,13 +52,16 @@
 % MULAI MENULIS DI SINI
 % =====================================================
 
-\chapter{Penjelasan Dulu}
+\chapter{Brainstorming dulu}
 
-Apa sih yang gw lakuin?
-
+Apa sih yang gw lakuin?\\
 Jadi, gw ngelakuin eksperimen buat validasi dana pensiun pake metode cek balance. Jadi, gw ngecek balance dari dana pensiun yang ada buat liat apakah sesuai sama ekspektasi atau enggak.
 
+\vspace{0.5cm}
+Jadi, ngapain? \\
 Spesifiknya gw akan melakukan validasi angka-angka pada Slide 17 (``Permasalahan Program Jaminan Pensiun'') dan Slide 16 (``Permasalahan Program Jaminan Hari Tua''), kita perlu membedah ``mesin'' aktuaria di baliknya.
+
+\vspace{0.25cm}
 
 Gw akan bandingkan dua sisi neraca:
 \begin{itemize}
@@ -68,6 +71,8 @@ Gw akan bandingkan dua sisi neraca:
 
 Kalau kedua sisi ini nggak balance, berarti ada yang salah di perhitungan atau asumsi yang dipakai.
 
+\vspace{0.25cm}
+
 Ketimpangan antara kedua sisi ini bisa ngasih insight tentang:
 \begin{itemize}
     \item Apakah iuran yang dikumpulkan cukup buat bayar manfaat pensiun.
@@ -76,7 +81,59 @@ Ketimpangan antara kedua sisi ini bisa ngasih insight tentang:
     \item Ketimpangan (Unfunded Liability) yang mungkin ada.
 \end{itemize}
 
+\vspace{0.1cm}
+
 Dengan ngecek balance ini, kita bisa validasi apakah program pensiun itu sehat secara finansial atau perlu penyesuaian.
+
+\vspace{0.25cm}
+
+% --- Bab 1 Decostruction & Theory ---
+Sebelum masuk ke eksperimen, gw harus menetapkan asumsi matematis berdasarkan teori aktuaria standar yang kemungkinan besar digunakan oleh BKF (Badan Kebijakan Fiskal) dalam slide tersebut.
+
+\section{Validasi Jaminan Pensiun}
+
+Gw mulai dengan validasi jaminan pensiun. Berdasarkan slide 17, gw asumsikan beberapa parameter dasar:
+\begin{itemize}
+    \item Tingkat bunga diskonto: 7\% per tahun
+    \item Mortalitas: Tabel mortalitas standar (misalnya TMI-2019)
+    \item Iuran: 3\% dari gaji peserta
+    \item Manfaat pensiun: Dihitung berdasarkan rumus tertentu (misalnya 1.5\% per tahun masa kerja)
+    \item usia pensiun: 58 tahun
+    \item usia masuk kerja: 30 tahun
+    \item periode pengamatan: 30 tahun
+    \item Frekuensi pembayaran: tahunan
+    \item Distribusi gaji: Pertumbuhan gaji 5\% per tahun
+    \item Formula Manfaat (Juli 2015 - Sekarang):
+\end{itemize}
+    
+    \begin{equation}
+        \text{Benefit} = 1\% \times \text{Masa Iur} \times \text{Rata-rata Upah tertimbang}
+    \end{equation}
+
+\begin{itemize}
+    \item \textbf{Valuasi Liabilitas:} Nilai Manfaat di tabel slide adalah Actuarial Present Value (APV) dari anuitas seumur hidup pada usia pensiun.
+\end{itemize}
+
+% Persamaan hanya menarik 12 tahun iuran
+\begin{equation}
+    APV = \text{Manfaat Tahunan} \times \ddot{a}_{x}^{12}
+\end{equation}
+
+\begin{itemize}
+    \item \textbf{Valuasi Aset:} Akumulasi iuran (3\% dari upah) yang dikembangkan dengan tingkat pengembalian investasi (investment return).
+\end{itemize}
+
+\begin{equation}
+    FV = \sum_{t=1}^{n} \text{Iuran Tahunan} \times (1 + r)^{n-t}
+\end{equation}
+
+\vspace{0.5cm}
+
+\section{Implementasi Eksperimen}
+
+gw buat skrip python untuk ngitung aktuaria untuk reverse engineering nilai-nilai di slide. gw taro di `src'.
+
+\vspace{0.5cm}
 
 
 % \chapter{Pembahasan Utama}
