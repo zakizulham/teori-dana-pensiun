@@ -47,7 +47,7 @@ class PolicySolver:
             print(f"Investasi Baru (Agar Cukup 9%): {implied_roi*100:.2f}%")
             print("-" * 40)
             
-            diff = implied_roi - 0.0653
+            diff = implied_roi - 0.0653 # type: ignore
             print(f"KESIMPULAN:")
             print(f"Pemerintah hanya perlu menaikkan kinerja investasi sebesar +{diff*100:.2f}%")
             print(f"dari 6.53% menjadi {implied_roi*100:.2f}% agar angka 9% menjadi valid.")
