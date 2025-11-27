@@ -144,6 +144,103 @@ Angka pada Slide 17 sangat bergantung pada asumsi makro ekonomi jangka panjang y
 
 \chapter{Menganalisis Slide 17}
 
+\section{Investigasi Awal: Pendekatan Single Life}
+
+Langkah pertama dalam eksperimen ini adalah mencoba mereproduksi angka pada Slide 17 menggunakan asumsi standar aktuaria sederhana: \textit{Single Life Annuity} (Hanya peserta, tanpa pasangan) dengan tingkat kenaikan gaji dan investasi yang moderat.
+
+Hasil simulasi awal menggunakan Python memberikan data sebagai berikut:
+
+\begin{table}[htbp]
+  \centering
+  \caption{Perbandingan Awal (Single Life Assumption)}
+  \begin{tabular}{lrrr}
+    \toprule
+    \textbf{Item} & \textbf{Hitungan Kita (Rp)} & \textbf{Target BKF (Rp)} & \textbf{Status} \\
+    \midrule
+    Upah Awal & 2.500.000 & 2.500.000 & \textcolor{green}{Match} \\
+    Akumulasi Aset & 151.960.069 & 249.783.000 & \textcolor{red}{Too Low} \\
+    Liabilitas (PV) & 318.986.765 & 561.752.000 & \textcolor{red}{Too Low} \\
+    Defisit & (167.026.696) & (311.969.000) & \textcolor{red}{Mismatch} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Analisis Kegagalan Awal:}
+\begin{itemize}
+    \item \textbf{Sisi Aset:} Nilai hitungan kita jauh lebih rendah. Ini mengindikasikan bahwa asumsi kenaikan gaji (\textit{salary scale}) yang digunakan BKF jauh lebih agresif daripada asumsi standar (5\%), sehingga iuran nominal yang masuk lebih besar.
+    \item \textbf{Sisi Liabilitas:} Nilai target BKF hampir dua kali lipat dari hitungan kita. Ini adalah indikator kuat bahwa asumsi \textit{Single Life} tidak valid. Program Jaminan Pensiun (JP) di Indonesia mewajibkan manfaat turunan bagi janda/duda.
+\end{itemize}
+
+\section{Koreksi Logika Aktuaria: Reversionary Annuity}
+
+Berdasarkan kegagalan pada percobaan awal, model matematika diperbarui menjadi model yang lebih \textit{rigorous} (ketat). Kita meninggalkan asumsi \textit{Single Life} dan beralih ke \textit{Joint Life Last Survivor} dengan fitur \textit{Reversionary Benefit}.
+
+Rumus valuasi liabilitas diperbarui menjadi:
+
+\begin{equation}
+    PV_{Liabilitas} = B_{tahunan} \times \ddot{a}_{reversionary}
+\end{equation}
+
+Dimana faktor anuitas reversionary didefinisikan sebagai kombinasi antara anuitas peserta dan manfaat janda/duda:
+
+\begin{equation}
+    \ddot{a}_{reversionary} = \left(\ddot{a}_x - \frac{11}{24}\right) + Pct_{survivor} \times (\ddot{a}_y - \ddot{a}_{xy})
+\end{equation}
+
+Keterangan:
+\begin{itemize}
+    \item $\ddot{a}_x$: Anuitas seumur hidup peserta (dikoreksi Woolhouse $-11/24$ untuk pembayaran bulanan).
+    \item $Pct_{survivor}$: Persentase manfaat janda (Asumsi regulasi: 50\%).
+    \item $(\ddot{a}_y - \ddot{a}_{xy})$: Probabilitas istri hidup \textbf{setelah} suami meninggal.
+\end{itemize}
+
+Dengan asumsi demografi istri 5 tahun lebih muda dari peserta, faktor pengali liabilitas meningkat signifikan, mendekati pola angka BKF.
+
+\section{Reverse Engineering Parameter Ekonomi}
+
+Setelah struktur logika matematika diperbaiki, tantangan berikutnya adalah menemukan \textit{hidden parameters} (asumsi ekonomi) yang digunakan BKF. Menggunakan algoritma \textit{solver} numerik (\textit{Brent's method}), kita mencari kombinasi \textit{Salary Increase} ($s$) dan \textit{Investment Return} ($i$) yang menghasilkan angka presisi.
+
+\subsection{Temuan: Negative Economic Spread}
+
+Hasil \textit{reverse engineering} menemukan fakta mengejutkan yang menjadi akar masalah defisit struktural pada Slide 17. BKF menggunakan asumsi di mana gaji tumbuh lebih cepat daripada hasil investasi.
+
+\begin{theorem}{Negative Spread}{neg_spread}
+    Defisit masif terjadi karena tingkat kenaikan gaji ($s$) lebih tinggi daripada tingkat pengembalian investasi ($i$).
+    \begin{equation}
+        s > i \quad \rightarrow \quad 7.87\% > 6.53\%
+    \end{equation}
+\end{theorem}
+
+Detail parameter yang ditemukan:
+\begin{itemize}
+    \item \textbf{Kenaikan Gaji ($s$):} 7.87\% per tahun. (Menyebabkan rata-rata upah tertimbang melonjak drastis).
+    \item \textbf{Return Investasi ($i$):} 6.53\% per tahun. (Aset gagal mengejar pertumbuhan kewajiban).
+    \item \textbf{Diskon Liabilitas ($v$):} 5.70\% per tahun.
+\end{itemize}
+
+\section{Hasil Reproduksi Akhir}
+
+Dengan menggunakan formula \textit{Reversionary Annuity} dan parameter \textit{Negative Spread} di atas, kita berhasil mereproduksi angka Slide 17 dengan tingkat akurasi yang sangat tinggi (selisih $<0.5\%$).
+
+\begin{table}[htbp]
+  \centering
+  \caption{Validasi Akhir (Rigorous Math + Forensik Ekonomi)}
+  \begin{tabular}{lrrr}
+    \toprule
+    \textbf{Metrik} & \textbf{Hitungan Kita} & \textbf{Target Slide 17} & \textbf{Akurasi} \\
+    \midrule
+    Gaji Awal & Rp 2.500.000 & Rp 2.500.000 & Tepat \\
+    Rata-rata Upah & Rp 10.218.117 & (Implisit) & - \\
+    \textbf{Total Aset} & \textbf{Rp 250.067.107} & \textbf{Rp 249.783.000} & \textbf{99.8\%} \\
+    \textbf{Total Liabilitas} & \textbf{Rp 562.203.745} & \textbf{Rp 561.752.000} & \textbf{99.9\%} \\
+    \textbf{Defisit (Gap)} & \textbf{(Rp 312.136.637)} & \textbf{(Rp 311.969.000)} & \textbf{Valid} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Kesimpulan Bab Ini:}
+Angka "mengerikan" pada Slide 17 bukan kesalahan hitung, melainkan representasi matematis dari kondisi ekonomi di mana janji manfaat (berbasis gaji) berlari lebih cepat daripada kemampuan aset (investasi) untuk berkembang. Inilah yang disebut sebagai \textit{Structural Unfunded}.
+
 % \section{Teori Dasar}
 % Tuliskan teori Anda di sini. Gunakan environment theorem untuk teorema.
 
