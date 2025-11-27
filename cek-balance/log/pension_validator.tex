@@ -114,7 +114,7 @@ Spesifiknya gw akan melakukan validasi angka-angka pada Slide 17 (``Permasalahan
 Gw akan bandingkan dua sisi neraca:
 \begin{itemize}
     \item \textbf{Sisi Aset (Accumulated Fund)}: Berapa uang yang terkumpul dari iuran (mirip prinsip Defined Contribution).
-    \item \textbf{Sisi Aset (Accumulated Fund)}: Berapa uang yang seharusnya dibayar ke peserta berdasarkan perhitungan aktuaria (mirip prinsip Defined Benefit).
+    \item \textbf{Sisi Liabilitas (Benefit Value):}: Berapa uang yang seharusnya dibayar ke peserta berdasarkan perhitungan aktuaria (mirip prinsip Defined Benefit).
 \end{itemize}
 
 Kalau kedua sisi ini nggak balance, berarti ada yang salah di perhitungan atau asumsi yang dipakai.
@@ -138,22 +138,48 @@ Dengan ngecek balance ini, kita bisa validasi apakah program pensiun itu sehat s
 % --- Bab 1 Decostruction & Theory ---
 Sebelum masuk ke eksperimen, gw harus menetapkan asumsi matematis berdasarkan teori aktuaria standar yang kemungkinan besar digunakan oleh BKF (Badan Kebijakan Fiskal) dalam slide tersebut.
 
-\section{Validasi Jaminan Pensiun}
+\section{Bahasa Bagusnya}
 
-Gw mulai dengan validasi jaminan pensiun. Berdasarkan slide 17, gw asumsikan beberapa parameter dasar:
+\section{Latar Belakang Eksperimen}
+
+Penelitian ini dilakukan untuk memvalidasi akurasi perhitungan aktuaria yang disajikan dalam dokumen "Harmonisasi Program Pensiun" oleh Badan Kebijakan Fiskal (BKF). Fokus utama validasi adalah \textbf{Slide 17}, yang menampilkan simulasi defisit dana pensiun dengan angka yang cukup ekstrem.
+
+Dalam slide tersebut, ditampilkan bahwa seorang pekerja dengan gaji awal Rp 2,5 Juta akan mengalami defisit tabungan pensiun sebesar Rp 311 Juta setelah bekerja selama 32 tahun. Angka ini memicu pertanyaan: \textit{Bagaimana mungkin defisitnya bisa lebih besar dari total aset yang terkumpul?}
+
+Untuk menjawab keraguan ini, saya melakukan metode \textit{Cek Balance} atau validasi neraca aktuaria:
 \begin{itemize}
-    \item Tingkat bunga diskonto: 7\% per tahun
-    \item Mortalitas: Tabel mortalitas standar (misalnya TMI-2019)
-    \item Iuran: 3\% dari gaji peserta
-    \item Manfaat pensiun: Dihitung berdasarkan rumus tertentu (misalnya 1.5\% per tahun masa kerja)
-    \item usia pensiun: 58 tahun
-    \item usia masuk kerja: 30 tahun
-    \item periode pengamatan: 30 tahun
-    \item Frekuensi pembayaran: tahunan
-    \item Distribusi gaji: Pertumbuhan gaji 5\% per tahun
-    \item Formula Manfaat (Juli 2015 - Sekarang):
+    \item \textbf{Sisi Aset:} Menghitung ulang akumulasi iuran menggunakan prinsip \textit{Time Value of Money}.
+    \item \textbf{Sisi Liabilitas:} Menghitung ulang janji manfaat menggunakan prinsip \textit{Actuarial Present Value}.
 \end{itemize}
-    
+
+\section{Parameter Input (Hard Data)}
+
+Berdasarkan data visual yang tertera pada Slide 17, saya menetapkan parameter berikut sebagai \textbf{Fakta Dasar (Fixed Inputs)} yang tidak boleh diubah dalam simulasi:
+
+\begin{itemize}
+    \item \textbf{Gaji Awal:} Rp 2.500.000 (Sesuai kolom pertama tabel simulasi BKF).
+    \item \textbf{Masa Iur (Masa Kerja):} 32 Tahun (Sesuai footnote asumsi pada slide).
+    \item \textbf{Usia Pensiun:} 56 Tahun (Sesuai ketentuan JHT/JP saat ini yang tertera pada slide).
+    \item \textbf{Usia Masuk Kerja:} 24 Tahun (Diperoleh dari $56 - 32$).
+    \item \textbf{Iuran:} 3\% dari gaji bulanan (Sesuai regulasi JP saat ini).
+    \item \textbf{Rumus Manfaat:} $1\% \times \text{Masa Kerja} \times \text{Rata-rata Upah}$.
+\end{itemize}
+
+\section{Hipotesis Awal (Naive Assumptions)}
+
+Karena Slide 17 tidak mencantumkan asumsi makro ekonomi secara eksplisit, saya perlu membuat hipotesis awal (\textit{Naive Assumption}) untuk memulai simulasi. Hipotesis ini menggunakan asumsi standar yang umum digunakan dalam valuasi dana pensiun konservatif:
+
+\begin{itemize}
+    \item \textbf{Kenaikan Gaji ($s$):} Asumsi 5\% per tahun (mengikuti inflasi moderat).
+    \item \textbf{Return Investasi ($i$):} Asumsi 7\% per tahun (kinerja moderat SBN/Deposito).
+    \item \textbf{Spread Ekonomi:} Positif ($i > s$), artinya hasil investasi lebih besar dari kenaikan gaji, yang merupakan syarat kesehatan dana pensiun.
+\end{itemize}
+
+Eksperimen pada bab selanjutnya akan menguji apakah hipotesis "Spread Positif" ini mampu menghasilkan angka yang sama dengan BKF, atau justru ada anomali tersembunyi.
+
+
+Pada Slide juga ditetapkan rumus manfaat pensiun sebagai berikut:
+
     \begin{equation}
         \text{Benefit} = 1\% \times \text{Masa Iur} \times \text{Rata-rata Upah tertimbang}
     \end{equation}
