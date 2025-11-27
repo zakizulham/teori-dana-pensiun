@@ -18,3 +18,35 @@
 # ======================================
 # venv
 *venv*
+
+# ======================================
+# latex temp files
+# ======================================
+*.aux
+*.bbl
+*.blg
+*.brf
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.xdv
+*.pdf
+*.lof
+*.lot
+*.run.xml
+*.bcf
+*.fls
+*.maf
+*.mtc*
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.acn
+*.acr
