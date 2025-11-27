@@ -131,9 +131,22 @@ Gw mulai dengan validasi jaminan pensiun. Berdasarkan slide 17, gw asumsikan beb
 
 \section{Implementasi Eksperimen}
 
-gw buat skrip python untuk ngitung aktuaria untuk reverse engineering nilai-nilai di slide. gw taro di `src'.
+gw buat skrip python untuk ngitung aktuaria untuk reverse engineering nilai-nilai di slide. gw taro di `src/'.
 
 \vspace{0.5cm}
+
+Angka pada Slide 17 sangat bergantung pada asumsi makro ekonomi jangka panjang yang tidak ditulis eksplisit di slide.
+\begin{itemize}
+    \item Jika Salary Increase tinggi, Nilai Manfaat akan meledak (karena rata-rata upah naik).
+    \item Jika Investment Return rendah, Akumulasi Dana akan mengecil.
+    \item Ketimpangan yang masif di Slide 17 (-311 juta unfunded untuk gaji 2.5 juta) mengindikasikan bahwa asumsi \textbf{Kenaikan Gaji $>$ Return Investasi} atau \textbf{Discount Rate Liabilitas sangat rendah} (sangat konservatif).
+\end{itemize}
+
+\section{kode python}
+
+\href{https://github.com/zakizulham/teori-dana-pensiun/blob/main/cek-balance/src/pension_validator.py}{kode python pension\_validator.py} 
+
+\section{Hasil Eksperimen}
 
 
 % \chapter{Pembahasan Utama}
